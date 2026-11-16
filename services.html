@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Nexovolt power-quality solutions: measurement, diagnosis, harmonic mitigation, power-factor correction, APFC retrofit and validation.">
+  <title>Power Quality Solutions | Nexovolt</title>
+  <link rel="stylesheet" href="nexovolt.css">
+  <script>
+    (function(){
+      try {
+        var mode = localStorage.getItem("nexovolt_theme_mode") || "auto";
+        var t = null;
+        if (mode === "system") {
+          t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+        } else if (mode === "manual") {
+          t = localStorage.getItem("nexovolt_theme");
+        } else {
+          // Auto (sunrise/sunset)
+          try {
+            var c = JSON.parse(localStorage.getItem("nexovolt_sun_times"));
+            if (c && c.sunrise && c.sunset) {
+              var now = Date.now();
+              t = (now >= new Date(c.sunrise).getTime() && now < new Date(c.sunset).getTime()) ? "light" : "dark";
+            }
+          } catch(e) {}
+        }
+        if (!t) {
+          var h = new Date().getHours();
+          t = (h >= 6 && h < 18) ? "light" : "dark";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      } catch(e) {}
+    })();
+  </script>
+  <script src="nexovolt.js" defer></script>
+</head>
+<body data-page="solutions">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><nav class="wrap nav" aria-label="Main navigation">
+    <a class="logo" href="Nexovolt Website redesign.html" aria-label="Nexovolt home">NEXO<b>VOLT</b></a>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+    <div class="site-links"><a data-nav="home" href="Nexovolt Website redesign.html">Home</a><a data-nav="solutions" href="services.html">Solutions</a><a data-nav="industries" href="industries.html">Industries</a><a data-nav="case-studies" href="case-studies.html">Case Studies</a><a data-nav="insights" href="resources.html">Insights</a><a data-nav="about" href="about.html">About</a><a class="button small" data-nav="contact" href="contact.html">Request an assessment</a><div class="theme-controls">
+          <button class="theme-mode-btn" type="button" aria-label="Theme mode setting" title="Theme mode setting">
+            <span class="theme-mode-label">Auto</span>
+          </button>
+          <button class="theme-toggle" type="button" aria-label="Toggle dark/light theme" title="Toggle dark/light theme"></button>
+        </div></div>
+  </nav></header>
+  <main id="main">
+    <section class="page-hero"><div class="wrap reveal"><div class="breadcrumb"><a href="Nexovolt Website redesign.html">Home</a> / Solutions</div><div class="eyebrow">ENGINEERING SOLUTIONS</div><h1>Technology follows a <span>measured diagnosis.</span></h1><p>Nexovolt helps industrial teams understand electrical-system behaviour, identify the real problem and implement a suitable, verifiable response.</p></div></section>
+
+    <section class="wrap section reveal">
+      <div class="section-head"><div class="eyebrow">THE ENGAGEMENT PATH</div><h2>From observed symptom to validated outcome.</h2><p class="muted">Scope is defined around the site and the decision required. Recommendations are not made from a product list or a single isolated reading.</p></div>
+      <div class="method-grid">
+        <article class="method-card"><h3>Study &amp; baseline</h3><p class="muted">Define monitoring scope, load conditions, relevant parameters and the questions the study must answer.</p></article>
+        <article class="method-card"><h3>Analysis &amp; diagnosis</h3><p class="muted">Review trends, spectra, operating context and limitations to identify likely causes and interactions.</p></article>
+        <article class="method-card"><h3>Engineering strategy</h3><p class="muted">Evaluate suitability, alternatives, exclusions and sizing basis before selecting a corrective path.</p></article>
+        <article class="method-card"><h3>Implementation</h3><p class="muted">Deliver the approved scope with practical coordination, equipment and commissioning records.</p></article>
+        <article class="method-card"><h3>Post-measurement</h3><p class="muted">Compare results under comparable conditions and document what changed.</p></article>
+        <article class="method-card"><h3>Continuous learning</h3><p class="muted">Turn approved findings into usable maintenance guidance and future engineering evidence.</p></article>
+      </div>
+    </section>
+
+    <section id="assessment" class="wrap section tight reveal"><div class="split"><div><span class="tag">STUDY &amp; ASSESSMENT</span><h2>Harmonic study &amp; power quality assessment</h2><p class="lead">Turn unclear electrical symptoms into a defensible measurement and diagnosis pathway.</p><p class="muted">The study can include monitoring scope, load conditions, analysis, report outputs, standards context and recommendations. Exact deliverables are agreed for the application.</p><a class="button" href="contact.html">Request an assessment <span aria-hidden="true">→</span></a></div><aside class="callout"><h3>Typical questions</h3><ul class="feature-list"><li>What is happening when the issue occurs?</li><li>Which loads or system interactions matter?</li><li>What should be measured, where and for how long?</li><li>What technical or operational impact can be quantified?</li><li>What options are suitable and what are their limitations?</li></ul></aside></div></section>
+
+    <section id="mitigation" class="wrap section reveal"><div class="section-head"><span class="tag">HARMONIC MITIGATION</span><h2>Engineer the corrective strategy.</h2><p class="muted">Active harmonic filters, passive harmonic filters and custom approaches are evaluated only after diagnosis. Suitability depends on the load profile, placement, operating range, system interactions and engineering basis.</p></div><div class="card-grid"><article class="card"><h3>Active harmonic filters</h3><p class="muted">Consider dynamic operating conditions, sizing basis, placement, monitoring and application limitations.</p><a class="button secondary small" href="products.html">Review engineering context</a></article><article class="card"><h3>Passive harmonic filters</h3><p class="muted">Consider fixed or predictable loads, tuning, operating range, loss, design basis and system interaction.</p><a class="button secondary small" href="products.html">Review engineering context</a></article><article class="card"><h3>Custom engineering</h3><p class="muted">Define the problem type, interfaces, study outputs and approval pathway for the specific site.</p><a class="button secondary small" href="contact.html">Request a consultation</a></article></div></section>
+
+    <section id="power-factor" class="wrap section tight reveal"><div class="split"><aside class="callout"><div class="eyebrow">POWER FACTOR &amp; APFC</div><h3>Check the system before adding kVAr.</h3><ul class="feature-list"><li>Low or fluctuating PF and penalty concerns</li><li>Capacitor failure, switching or controller issues</li><li>Harmonic checks and panel health</li><li>Controller, capacitor and reactor selection</li><li>Retrofit, maintenance and validation</li></ul></aside><div><span class="tag">CORRECTION &amp; RETROFIT</span><h2>Power factor correction and APFC retrofit</h2><p class="lead">A reliable correction system is designed around the site’s load profile and electrical conditions—not a generic rating.</p><p class="muted">Nexovolt can assess panel condition, load variation and harmonic context before defining a suitable corrective or retrofit scope.</p><a class="button" href="contact.html">Talk to an engineer <span aria-hidden="true">→</span></a></div></div></section>
+
+    <section class="wrap section tight reveal"><div class="cta-band"><div class="eyebrow">ENERGY &amp; SYSTEM STUDIES</div><h2>Need an energy audit, optimisation review or custom power-system study?</h2><p class="muted">Nexovolt can define an appropriate measurement, analysis and consultation path. Any regulated or accredited audit scope should be confirmed separately.</p><div class="ctas"><a class="button" href="contact.html">Request a technical consultation <span aria-hidden="true">→</span></a><a class="button secondary" href="case-studies.html">See the evidence framework</a></div></div></section>
+  </main>
+  <footer><div class="wrap footer-inner"><div><div class="footer-logo">NEXO<b>VOLT</b></div>Industrial power quality engineering.</div><div>© <span data-year></span> Nexovolt · Measurement-led. Engineering-led. Evidence-led.</div></div></footer>
+</body>
+</html>
+
+
+
+

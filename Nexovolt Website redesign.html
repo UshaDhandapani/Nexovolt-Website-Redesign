@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Nexovolt is an industrial power-quality engineering company for measurement-led assessment, diagnosis, mitigation and validation.">
+  <title>Nexovolt | Industrial Power Quality Engineering</title>
+  <link rel="stylesheet" href="nexovolt.css">
+  <script src="nexovolt.js" defer></script>
+  <script>
+    (function(){
+      try {
+        var mode = localStorage.getItem("nexovolt_theme_mode") || "auto";
+        var t = null;
+        if (mode === "system") {
+          t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+        } else if (mode === "manual") {
+          t = localStorage.getItem("nexovolt_theme");
+        } else {
+          // Auto (sunrise/sunset)
+          try {
+            var c = JSON.parse(localStorage.getItem("nexovolt_sun_times"));
+            if (c && c.sunrise && c.sunset) {
+              var now = Date.now();
+              t = (now >= new Date(c.sunrise).getTime() && now < new Date(c.sunset).getTime()) ? "light" : "dark";
+            }
+          } catch(e) {}
+        }
+        if (!t) {
+          var h = new Date().getHours();
+          t = (h >= 6 && h < 18) ? "light" : "dark";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      } catch(e) {}
+    })();
+  </script>
+</head>
+<body data-page="home">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="wrap nav" aria-label="Main navigation">
+      <a class="logo" href="Nexovolt Website redesign.html" aria-label="Nexovolt home">
+        <img src="Nexovolt Logo(Upscaled).png" alt="Nexovolt logo" class="logo-image" width="60" height="40" style="aspect-ratio: 3/2;" onerror="this.style.display='none'">
+        <span class="logo-text">NEXO<b>VOLT</b></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+      <div class="site-links">
+        <a data-nav="home" href="Nexovolt Website redesign.html">Home</a>
+        <a data-nav="solutions" href="services.html">Solutions</a>
+        <a data-nav="industries" href="industries.html">Industries</a>
+        <a data-nav="case-studies" href="case-studies.html">Case Studies</a>
+        <a data-nav="insights" href="resources.html">Insights</a>
+        <a data-nav="about" href="about.html">About</a>
+        <a class="button small" data-nav="contact" href="contact.html">Request an assessment</a>
+        <div class="theme-controls">
+          <button class="theme-mode-btn" type="button" aria-label="Theme mode setting" title="Theme mode setting">
+            <span class="theme-mode-label">Auto</span>
+          </button>
+          <button class="theme-toggle" type="button" aria-label="Toggle dark/light theme" title="Toggle dark/light theme"></button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="wrap home-hero reveal">
+      <div>
+        <div class="eyebrow">INDUSTRIAL POWER QUALITY ENGINEERING</div>
+        <h1>Engineering better power quality for <span>reliable industrial performance.</span></h1>
+        <p class="lead">Measurement-led power-quality studies, harmonic analysis and engineered mitigation solutions for industrial facilities.</p>
+        <p class="muted">Nexovolt measures electrical-system behaviour, diagnoses and quantifies the real problem, engineers the appropriate corrective strategy, implements it and validates the result.</p>
+        <div class="ctas">
+          <a class="button" href="contact.html">Request a power quality assessment <span aria-hidden="true">→</span></a>
+          <a class="button secondary" href="contact.html">Talk to an engineer</a>
+        </div>
+      </div>
+      <div class="hero-card" aria-label="Illustration representing a monitored electrical waveform">
+        <div class="gridlines"><div class="wave"></div></div>
+        <div class="signal-key"><span>MEASUREMENT BEFORE RECOMMENDATION</span><b>MONITOR · DIAGNOSE · VALIDATE</b></div>
+      </div>
+    </section>
+
+    <section class="wrap reveal" aria-label="Evidence-first commitment">
+      <div class="evidence-strip">
+        <div><strong>EVIDENCE-LED BY DESIGN</strong><span>Technical claims, metrics and customer references are published only after Nexovolt approval.</span></div>
+        <div><strong>Measure</strong><span>Capture real operating conditions and a relevant baseline.</span></div>
+        <div><strong>Engineer</strong><span>Select technology only after the electrical context is understood.</span></div>
+        <div><strong>Validate</strong><span>Document outcomes with comparable post-measurements.</span></div>
+      </div>
+    </section>
+
+    <section class="wrap section reveal">
+      <div class="section-head">
+        <div class="eyebrow">START WITH THE SYMPTOM</div>
+        <h2>Electrical problems deserve an engineering answer.</h2>
+        <p class="muted">Nexovolt helps industrial teams move from an observed issue to a defined measurement, diagnosis and corrective path.</p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem"><b>Harmonics</b>Distortion, non-linear loads and uncertain system interactions.</div>
+        <div class="problem"><b>Heating &amp; trips</b>Repeated heating, nuisance tripping or reliability concerns.</div>
+        <div class="problem"><b>Capacitor failures</b>APFC health, switching issues and premature component failure.</div>
+        <div class="problem"><b>Power-factor penalties</b>Poor or fluctuating PF requiring a measured response.</div>
+        <div class="problem"><b>Instability</b>Electrical behaviour that changes with load, shift or process conditions.</div>
+        <div class="problem"><b>Losses &amp; capacity</b>Electrical loading, losses or headroom that need to be quantified.</div>
+      </div>
+    </section>
+
+    <section class="wrap section tight reveal">
+      <div class="section-head">
+        <div class="eyebrow">SIGNATURE ENGINEERING METHODOLOGY</div>
+        <h2>Find the problem. Engineer the solution. Validate the result.</h2>
+      </div>
+      <div class="method-grid">
+        <article class="method-card"><h3>Measure</h3><p class="muted">Capture actual operating conditions, instrument scope and a representative baseline.</p></article>
+        <article class="method-card"><h3>Diagnose</h3><p class="muted">Identify sources, interactions and likely root causes in their system context.</p></article>
+        <article class="method-card"><h3>Quantify</h3><p class="muted">Translate the issue into measurable technical, operational or business impact.</p></article>
+        <article class="method-card"><h3>Engineer</h3><p class="muted">Select and size a suitable corrective strategy, including alternatives and limitations.</p></article>
+        <article class="method-card"><h3>Implement</h3><p class="muted">Deploy the approved scope with practical commissioning and site records.</p></article>
+        <article class="method-card"><h3>Validate</h3><p class="muted">Measure again under comparable conditions and document the achieved outcome.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap section reveal">
+      <div class="section-head">
+        <div class="eyebrow">SOLUTIONS</div>
+        <h2>Diagnosis-to-validation capability.</h2>
+        <p class="muted">Products are supporting technologies, not the starting point. Each engagement is shaped by site conditions and the question that needs answering.</p>
+      </div>
+      <div class="card-grid">
+        <article class="card"><span class="tag">STUDY &amp; ASSESSMENT</span><h3>Harmonic and power-quality studies</h3><p class="muted">Monitoring, analysis, diagnosis and practical reporting for facilities with complex electrical symptoms.</p><a class="button secondary small" href="services.html#assessment">Explore assessment</a></article>
+        <article class="card"><span class="tag">MITIGATION</span><h3>Harmonic mitigation</h3><p class="muted">A measured engineering pathway to evaluate suitable active, passive or custom corrective strategies.</p><a class="button secondary small" href="services.html#mitigation">Explore mitigation</a></article>
+        <article class="card"><span class="tag">CORRECTION &amp; RETROFIT</span><h3>Power factor &amp; APFC health</h3><p class="muted">Panel health checks, system and harmonic considerations, retrofit design and verification.</p><a class="button secondary small" href="services.html#power-factor">Explore power factor</a></article>
+      </div>
+    </section>
+
+    <section class="wrap section tight reveal">
+      <div class="split">
+        <div>
+          <div class="eyebrow">PRIORITY INDUSTRIES</div>
+          <h2>Built around operating reality.</h2>
+          <p class="muted">The context, consequences and appropriate measurement plan differ across industries. Nexovolt starts with equipment, operating patterns and the cost of interruption.</p>
+          <a class="button secondary" href="industries.html">Explore industries <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="industry-grid">
+          <div class="industry"><span aria-hidden="true">🏭</span>Automotive &amp; manufacturing<small>Drives, automation, welding and production reliability.</small></div>
+          <div class="industry"><span aria-hidden="true">⚕</span>Healthcare &amp; pharma<small>Sensitive equipment, process reliability and continuity.</small></div>
+          <div class="industry"><span aria-hidden="true">↔</span>Railways &amp; infrastructure<small>Pumps, long feeders and critical service continuity.</small></div>
+          <div class="industry"><span aria-hidden="true">▦</span>Commercial &amp; research<small>Mixed electronic loads, solar interaction and APFC systems.</small></div>
+          <div class="industry"><span aria-hidden="true">◼</span>FMCG &amp; process<small>Continuous production, drives and electrical reliability.</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section tight reveal">
+      <div class="case-status">
+        <div class="eyebrow">CASE-STUDY LIBRARY</div>
+        <h2>Proof should be measured, comparable and approved.</h2>
+        <p class="muted">Nexovolt’s reusable case-study format captures the operating context, measurements, diagnosis, selected solution and before/after validation. Customer names, metrics and results remain unpublished until approved.</p>
+        <a class="button secondary" href="case-studies.html">View the evidence framework <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="wrap section tight reveal">
+      <div class="cta-band">
+        <div class="eyebrow">TALK TO A QUALIFIED ENGINEER</div>
+        <h2>Have a power-quality problem that needs a measured next step?</h2>
+        <p class="muted">Tell us about the facility, the symptoms and any available readings. We will use that context to determine the most useful first conversation.</p>
+        <div class="ctas"><a class="button" href="contact.html">Request a power quality assessment <span aria-hidden="true">→</span></a><a class="button secondary" href="contact.html">Talk to an engineer</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div>
+        <div class="footer-logo">
+          <img src="Nexovolt Logo(Upscaled).png" alt="Nexovolt logo" class="footer-logo-image" width="120" height="80" style="aspect-ratio: 3/2; max-width:120px; height:auto; width:auto;" onerror="this.style.display='none'">
+          <span class="footer-logo-text">NEXO<b>VOLT</b></span>
+        </div>
+        Industrial power quality engineering.
+      </div>
+      <div>© <span data-year></span> Nexovolt · Measurement-led. Engineering-led. Evidence-led.</div>
+    </div>
+  </footer>
+</body>
+</html>
+
+
+
+

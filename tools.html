@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Prepare for a Nexovolt industrial power-quality assessment with the relevant site information and measurements.">
+  <title>Prepare for an Assessment | Nexovolt</title>
+  <link rel="stylesheet" href="nexovolt.css">
+  <script>
+    (function(){
+      try {
+        var mode = localStorage.getItem("nexovolt_theme_mode") || "auto";
+        var t = null;
+        if (mode === "system") {
+          t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+        } else if (mode === "manual") {
+          t = localStorage.getItem("nexovolt_theme");
+        } else {
+          // Auto (sunrise/sunset)
+          try {
+            var c = JSON.parse(localStorage.getItem("nexovolt_sun_times"));
+            if (c && c.sunrise && c.sunset) {
+              var now = Date.now();
+              t = (now >= new Date(c.sunrise).getTime() && now < new Date(c.sunset).getTime()) ? "light" : "dark";
+            }
+          } catch(e) {}
+        }
+        if (!t) {
+          var h = new Date().getHours();
+          t = (h >= 6 && h < 18) ? "light" : "dark";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      } catch(e) {}
+    })();
+  </script>
+  <script src="nexovolt.js" defer></script>
+</head>
+<body data-page="solutions">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><nav class="wrap nav" aria-label="Main navigation"><a class="logo" href="Nexovolt Website redesign.html" aria-label="Nexovolt home">NEXO<b>VOLT</b></a><button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button><div class="site-links"><a data-nav="home" href="Nexovolt Website redesign.html">Home</a><a data-nav="solutions" href="services.html">Solutions</a><a data-nav="industries" href="industries.html">Industries</a><a data-nav="case-studies" href="case-studies.html">Case Studies</a><a data-nav="insights" href="resources.html">Insights</a><a data-nav="about" href="about.html">About</a><a class="button small" data-nav="contact" href="contact.html">Request an assessment</a><div class="theme-controls">
+          <button class="theme-mode-btn" type="button" aria-label="Theme mode setting" title="Theme mode setting">
+            <span class="theme-mode-label">Auto</span>
+          </button>
+          <button class="theme-toggle" type="button" aria-label="Toggle dark/light theme" title="Toggle dark/light theme"></button>
+        </div></div></nav></header>
+  <main id="main">
+    <section class="page-hero"><div class="wrap reveal"><div class="breadcrumb"><a href="Nexovolt Website redesign.html">Home</a> / Prepare for an assessment</div><div class="eyebrow">ASSESSMENT PREPARATION</div><h1>Bring the context, not an <span>assumed outcome.</span></h1><p>A calculator cannot replace a site study, engineering diagnosis or verified savings analysis. These details help make the first conversation more useful.</p></div></section>
+    <section class="wrap section reveal"><div class="split"><div><div class="eyebrow">USEFUL INFORMATION</div><h2>What to prepare before speaking with an engineer.</h2><p class="muted">Not every item is required. Share what is available and identify where the information is incomplete.</p></div><div class="callout"><ul class="feature-list"><li>Electrical symptoms and when they occur</li><li>Facility type, operating shifts and recent changes</li><li>Affected equipment, load details and one-line diagrams</li><li>Utility bills, penalties or prior reports where relevant</li><li>Available measurements, instrument records or panel photos</li></ul><a class="button" href="contact.html">Request an assessment <span aria-hidden="true">→</span></a></div></div></section>
+    <section class="wrap section tight reveal"><div class="case-status"><div class="eyebrow">CLAIMS &amp; SAVINGS</div><h2>Publish only what can be measured and approved.</h2><p class="muted">Savings, payback, compliance and performance outcomes require a defined baseline, calculation or measurement method, stated assumptions and Nexovolt approval before publication.</p></div></section>
+  </main>
+  <footer><div class="wrap footer-inner"><div><div class="footer-logo">NEXO<b>VOLT</b></div>Industrial power quality engineering.</div><div>© <span data-year></span> Nexovolt · Measurement-led. Engineering-led. Evidence-led.</div></div></footer>
+</body>
+</html>
+
+
+
+
