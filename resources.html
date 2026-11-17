@@ -5,41 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Nexovolt Insights: practical, problem-led industrial power-quality guidance and measurement-led engineering perspectives.">
   <title>Insights | Nexovolt</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" sizes="64x64"><link rel="canonical" href="resources.html">
+  <meta property="og:title" content="Insights | Nexovolt">
+  <meta property="og:description" content="Nexovolt Insights: practical, problem-led industrial power-quality guidance and measurement-led engineering perspectives.">
+  <meta property="og:type" content="website">
   <link rel="stylesheet" href="nexovolt.css">
-  <script>
-    (function(){
-      try {
-        var mode = localStorage.getItem("nexovolt_theme_mode") || "auto";
-        var t = null;
-        if (mode === "system") {
-          t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
-        } else if (mode === "manual") {
-          t = localStorage.getItem("nexovolt_theme");
-        } else {
-          // Auto (sunrise/sunset)
-          try {
-            var c = JSON.parse(localStorage.getItem("nexovolt_sun_times"));
-            if (c && c.sunrise && c.sunset) {
-              var now = Date.now();
-              t = (now >= new Date(c.sunrise).getTime() && now < new Date(c.sunset).getTime()) ? "light" : "dark";
-            }
-          } catch(e) {}
-        }
-        if (!t) {
-          var h = new Date().getHours();
-          t = (h >= 6 && h < 18) ? "light" : "dark";
-        }
-        document.documentElement.setAttribute("data-theme", t);
-      } catch(e) {}
-    })();
-  </script>
+  <script src="nexovolt-theme-init.js"></script>
+
   <script src="nexovolt.js" defer></script>
 </head>
 <body data-page="insights">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><nav class="wrap nav" aria-label="Main navigation">
-    <a class="logo" href="Nexovolt Website redesign.html" aria-label="Nexovolt home">NEXO<b>VOLT</b></a><button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
-    <div class="site-links"><a data-nav="home" href="Nexovolt Website redesign.html">Home</a><a data-nav="solutions" href="services.html">Solutions</a><a data-nav="industries" href="industries.html">Industries</a><a data-nav="case-studies" href="case-studies.html">Case Studies</a><a data-nav="insights" href="resources.html">Insights</a><a data-nav="about" href="about.html">About</a><a class="button small" data-nav="contact" href="contact.html">Request an assessment</a><div class="theme-controls">
+    <a class="logo" href="index.html" aria-label="Nexovolt home">NEXO<b>VOLT</b></a><button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-links">☰</button>
+    <div class="site-links" id="site-links"><a data-nav="home" href="index.html">Home</a><a data-nav="solutions" href="services.html">Solutions</a><a data-nav="industries" href="industries.html">Industries</a><a data-nav="case-studies" href="case-studies.html">Case Studies</a><a data-nav="insights" href="resources.html">Insights</a><a data-nav="about" href="about.html">About</a><a data-nav="tools" href="tools.html">Assessment prep</a><a class="button small" data-nav="contact" href="contact.html">Request an assessment</a><div class="theme-controls">
           <button class="theme-mode-btn" type="button" aria-label="Theme mode setting" title="Theme mode setting">
             <span class="theme-mode-label">Auto</span>
           </button>
@@ -47,15 +26,11 @@
         </div></div>
   </nav></header>
   <main id="main">
-    <section class="page-hero"><div class="wrap reveal"><div class="breadcrumb"><a href="Nexovolt Website redesign.html">Home</a> / Insights</div><div class="eyebrow">PRACTICAL ENGINEERING INSIGHTS</div><h1>Useful context before the <span>engineering conversation.</span></h1><p>Problem-led technical content for industrial teams that need to understand symptoms, collect better evidence and prepare for a measured assessment.</p></div></section>
-    <section class="wrap section reveal"><div class="section-head"><div class="eyebrow">CONTENT PILLARS</div><h2>Designed around real site questions.</h2><p class="muted">Use this system for reviewed, accurate and genuinely useful content—not generic definitions or product-catalogue articles.</p></div><div class="resource-list"><article class="resource"><div class="kind">REAL INDUSTRIAL PROBLEMS</div><h3>When VFD-related distortion needs a study</h3><p class="muted">Explain symptoms, operating context, measurement requirements and why root-cause diagnosis comes first.</p><a class="button secondary small" href="contact.html">Discuss this problem</a></article><article class="resource"><div class="kind">TECHNICAL EDUCATION</div><h3>THD and TDD: what needs to be measured?</h3><p class="muted">Explain measurement point, load context, monitoring duration and the limits of a single reading.</p><a class="button secondary small" href="contact.html">Talk to an engineer</a></article><article class="resource"><div class="kind">APFC HEALTH</div><h3>Why capacitor failures need system context</h3><p class="muted">Cover panel health, load changes, harmonic checks, controller behaviour and a practical diagnostic path.</p><a class="button secondary small" href="contact.html">Request an assessment</a></article></div></section>
+    <section class="page-hero"><div class="wrap reveal"><div class="breadcrumb"><a href="index.html">Home</a> / Insights</div><div class="eyebrow">PRACTICAL ENGINEERING INSIGHTS</div><h1>Useful context before the <span>engineering conversation.</span></h1><p>Problem-led technical content for industrial teams that need to understand symptoms, collect better evidence and prepare for a measured assessment.</p></div></section>
+    <section class="wrap section reveal"><div class="section-head"><div class="eyebrow">UPCOMING RESOURCE TOPICS</div><h2>Technical resources are in development.</h2><p class="muted">The topics below are planned subjects, not published articles. Resources will be added after engineering review.</p></div><div class="resource-list"><article class="resource"><div class="kind">PLANNED TOPIC</div><h3>When VFD-related distortion needs a study</h3><p class="muted">Explain symptoms, operating context, measurement requirements and why root-cause diagnosis comes first.</p><a class="button secondary small" href="contact.html">Discuss this problem</a></article><article class="resource"><div class="kind">PLANNED TOPIC</div><h3>THD and TDD: what needs to be measured?</h3><p class="muted">Explain measurement point, load context, monitoring duration and the limits of a single reading.</p><a class="button secondary small" href="contact.html">Talk to an engineer</a></article><article class="resource"><div class="kind">PLANNED TOPIC</div><h3>Why capacitor failures need system context</h3><p class="muted">Cover panel health, load changes, harmonic checks, controller behaviour and a practical diagnostic path.</p><a class="button secondary small" href="contact.html">Request an assessment</a></article></div></section>
     <section class="wrap section tight reveal"><div class="split"><div><div class="eyebrow">EDITORIAL STANDARD</div><h2>Evidence-led and application-specific.</h2><p class="muted">Insights should connect a relevant problem to a solution or industry page, name the limits of the explanation and link to an engineering conversation when a site assessment is required.</p></div><div class="callout"><ul class="feature-list"><li>Real industrial problems and observed symptoms</li><li>Approved case-study lessons and field observations</li><li>Technical education with clear conditions and limitations</li><li>Nexovolt people, instruments and capability updates</li><li>Reviewed title, metadata, internal links and image alternatives</li></ul></div></div></section>
     <section class="wrap section tight reveal"><div class="cta-band"><div class="eyebrow">A RESOURCE HAS LIMITS</div><h2>Need an answer for your specific electrical system?</h2><p class="muted">A short technical conversation can help determine whether a study, assessment or another engineering scope is appropriate.</p><div class="ctas"><a class="button" href="contact.html">Talk to an engineer <span aria-hidden="true">→</span></a><a class="button secondary" href="case-studies.html">View case-study standards</a></div></div></section>
   </main>
-  <footer><div class="wrap footer-inner"><div><div class="footer-logo">NEXO<b>VOLT</b></div>Industrial power quality engineering.</div><div>© <span data-year></span> Nexovolt · Measurement-led. Engineering-led. Evidence-led.</div></div></footer>
+  <footer><div class="wrap footer-inner"><div><div class="footer-logo">NEXO<b>VOLT</b></div>Industrial power quality engineering.</div><div>© <span data-year></span> Nexovolt · Measurement-led. Engineering-led. Evidence-led.</div></div><div class="wrap privacy-link"><a href="privacy.html">Privacy notice</a></div></footer>
 </body>
 </html>
-
-
-
-

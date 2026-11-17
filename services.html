@@ -5,42 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Nexovolt power-quality solutions: measurement, diagnosis, harmonic mitigation, power-factor correction, APFC retrofit and validation.">
   <title>Power Quality Solutions | Nexovolt</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" sizes="64x64"><link rel="canonical" href="services.html">
+  <meta property="og:title" content="Power Quality Solutions | Nexovolt">
+  <meta property="og:description" content="Nexovolt power-quality solutions: measurement, diagnosis, harmonic mitigation, power-factor correction, APFC retrofit and validation.">
+  <meta property="og:type" content="website">
   <link rel="stylesheet" href="nexovolt.css">
-  <script>
-    (function(){
-      try {
-        var mode = localStorage.getItem("nexovolt_theme_mode") || "auto";
-        var t = null;
-        if (mode === "system") {
-          t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
-        } else if (mode === "manual") {
-          t = localStorage.getItem("nexovolt_theme");
-        } else {
-          // Auto (sunrise/sunset)
-          try {
-            var c = JSON.parse(localStorage.getItem("nexovolt_sun_times"));
-            if (c && c.sunrise && c.sunset) {
-              var now = Date.now();
-              t = (now >= new Date(c.sunrise).getTime() && now < new Date(c.sunset).getTime()) ? "light" : "dark";
-            }
-          } catch(e) {}
-        }
-        if (!t) {
-          var h = new Date().getHours();
-          t = (h >= 6 && h < 18) ? "light" : "dark";
-        }
-        document.documentElement.setAttribute("data-theme", t);
-      } catch(e) {}
-    })();
-  </script>
+  <script src="nexovolt-theme-init.js"></script>
+
   <script src="nexovolt.js" defer></script>
 </head>
 <body data-page="solutions">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><nav class="wrap nav" aria-label="Main navigation">
-    <a class="logo" href="Nexovolt Website redesign.html" aria-label="Nexovolt home">NEXO<b>VOLT</b></a>
-    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
-    <div class="site-links"><a data-nav="home" href="Nexovolt Website redesign.html">Home</a><a data-nav="solutions" href="services.html">Solutions</a><a data-nav="industries" href="industries.html">Industries</a><a data-nav="case-studies" href="case-studies.html">Case Studies</a><a data-nav="insights" href="resources.html">Insights</a><a data-nav="about" href="about.html">About</a><a class="button small" data-nav="contact" href="contact.html">Request an assessment</a><div class="theme-controls">
+    <a class="logo" href="index.html" aria-label="Nexovolt home">NEXO<b>VOLT</b></a>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-links">☰</button>
+    <div class="site-links" id="site-links"><a data-nav="home" href="index.html">Home</a><a data-nav="solutions" href="services.html">Solutions</a><a data-nav="industries" href="industries.html">Industries</a><a data-nav="case-studies" href="case-studies.html">Case Studies</a><a data-nav="insights" href="resources.html">Insights</a><a data-nav="about" href="about.html">About</a><a data-nav="tools" href="tools.html">Assessment prep</a><a class="button small" data-nav="contact" href="contact.html">Request an assessment</a><div class="theme-controls">
           <button class="theme-mode-btn" type="button" aria-label="Theme mode setting" title="Theme mode setting">
             <span class="theme-mode-label">Auto</span>
           </button>
@@ -48,7 +27,7 @@
         </div></div>
   </nav></header>
   <main id="main">
-    <section class="page-hero"><div class="wrap reveal"><div class="breadcrumb"><a href="Nexovolt Website redesign.html">Home</a> / Solutions</div><div class="eyebrow">ENGINEERING SOLUTIONS</div><h1>Technology follows a <span>measured diagnosis.</span></h1><p>Nexovolt helps industrial teams understand electrical-system behaviour, identify the real problem and implement a suitable, verifiable response.</p></div></section>
+    <section class="page-hero"><div class="wrap reveal"><div class="breadcrumb"><a href="index.html">Home</a> / Solutions</div><div class="eyebrow">ENGINEERING SOLUTIONS</div><h1>Technology follows a <span>measured diagnosis.</span></h1><p>Nexovolt helps industrial teams understand electrical-system behaviour, identify the real problem and implement a suitable, verifiable response.</p></div></section>
 
     <section class="wrap section reveal">
       <div class="section-head"><div class="eyebrow">THE ENGAGEMENT PATH</div><h2>From observed symptom to validated outcome.</h2><p class="muted">Scope is defined around the site and the decision required. Recommendations are not made from a product list or a single isolated reading.</p></div>
@@ -70,10 +49,6 @@
 
     <section class="wrap section tight reveal"><div class="cta-band"><div class="eyebrow">ENERGY &amp; SYSTEM STUDIES</div><h2>Need an energy audit, optimisation review or custom power-system study?</h2><p class="muted">Nexovolt can define an appropriate measurement, analysis and consultation path. Any regulated or accredited audit scope should be confirmed separately.</p><div class="ctas"><a class="button" href="contact.html">Request a technical consultation <span aria-hidden="true">→</span></a><a class="button secondary" href="case-studies.html">See the evidence framework</a></div></div></section>
   </main>
-  <footer><div class="wrap footer-inner"><div><div class="footer-logo">NEXO<b>VOLT</b></div>Industrial power quality engineering.</div><div>© <span data-year></span> Nexovolt · Measurement-led. Engineering-led. Evidence-led.</div></div></footer>
+  <footer><div class="wrap footer-inner"><div><div class="footer-logo">NEXO<b>VOLT</b></div>Industrial power quality engineering.</div><div>© <span data-year></span> Nexovolt · Measurement-led. Engineering-led. Evidence-led.</div></div><div class="wrap privacy-link"><a href="privacy.html">Privacy notice</a></div></footer>
 </body>
 </html>
-
-
-
-

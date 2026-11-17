@@ -10,26 +10,40 @@ function setActiveNavigation() {
 
 function setupMenu() {
   const button = document.querySelector(".nav-toggle");
-  const links = document.querySelector(".site-links");
+  const links = document.querySelector("#site-links");
   if (!button || !links) return;
-  button.addEventListener("click", () => {
-    const open = links.classList.toggle("open");
+
+  const nav = button.closest("nav");
+  const setOpen = (open) => {
+    links.classList.toggle("open", open);
     button.setAttribute("aria-expanded", String(open));
+    button.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     button.textContent = open ? "×" : "☰";
+  };
+
+  button.addEventListener("click", () => setOpen(!links.classList.contains("open")));
+  links.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setOpen(false));
   });
-  links.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
-    links.classList.remove("open");
-    button.setAttribute("aria-expanded", "false");
-    button.textContent = "☰";
-  }));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && links.classList.contains("open")) {
+      setOpen(false);
+      button.focus();
+    }
+  });
+  document.addEventListener("click", (event) => {
+    if (links.classList.contains("open") && nav && !nav.contains(event.target)) setOpen(false);
+  });
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 1024) setOpen(false);
+  });
 }
 
 function setupReveals() {
   const items = document.querySelectorAll(".reveal");
-  if (!("IntersectionObserver" in window)) {
-    items.forEach((item) => item.classList.add("show"));
-    return;
-  }
+  if (!items.length || !("IntersectionObserver" in window)) return;
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -38,277 +52,120 @@ function setupReveals() {
       }
     });
   }, { threshold: 0.12 });
-  items.forEach((item) => observer.observe(item));
+
+  try {
+    items.forEach((item) => observer.observe(item));
+    items.forEach((item) => item.classList.add("reveal-ready"));
+  } catch (error) {
+    observer.disconnect();
+    items.forEach((item) => item.classList.remove("reveal-ready"));
+  }
 }
 
-function setupEstimator() {
-  const form = document.querySelector("[data-estimator]");
-  if (!form) return;
-  const output = document.querySelector("#estimate-result");
-  const detail = document.querySelector("#estimate-detail");
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const value = (id) => Number(document.querySelector(id).value);
-    const kw = value("#kw");
-    const hours = value("#hours");
-    const oldPf = Math.min(1, Math.max(0.1, value("#old-pf")));
-    const targetPf = Math.min(1, Math.max(0.1, value("#target-pf")));
-    const tariff = value("#tariff");
-    if (!kw || !hours || !tariff || targetPf < oldPf) {
-      output.textContent = "Check inputs";
-      detail.textContent = "Use positive load, hours and tariff values. Your target power factor must be at least the existing value.";
-      return;
-    }
-    const oldKvar = kw * Math.tan(Math.acos(oldPf));
-    const targetKvar = kw * Math.tan(Math.acos(targetPf));
-    const correction = Math.max(0, oldKvar - targetKvar);
-    const illustrative = kw * hours * 12 * tariff * (targetPf - oldPf) * 0.08;
-    output.textContent = correction.toFixed(1) + " kVAr";
-    detail.textContent = "Illustrative correction requirement. A simplified savings indicator is about ₹" +
-      Math.round(illustrative).toLocaleString("en-IN") +
-      " / year. A site study and the applicable tariff are needed for a dependable savings figure.";
-  });
-}
-
-function setupContactForm() {
-  const form = document.querySelector("[data-contact-form]");
-  if (!form) return;
-  const message = form.querySelector(".form-message");
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    message.textContent = "This preview form is ready for an approved CRM or lead database connection. Do not publish until routing, acknowledgement and response ownership have been tested.";
-  });
-}
-
-// Theme management: 3 modes (auto: internet sunrise/sunset, system: OS default theme, manual: user dark/light choice)
-// Manual toggle button appears only when in manual mode.
-// Prevents browsers from auto-forcing unwanted color schemes.
 const THEME_STORAGE_KEY = "nexovolt_theme";
 const THEME_MODE_KEY = "nexovolt_theme_mode";
-const SUN_CACHE_KEY = "nexovolt_sun_times";
-let solarTimerId = null;
+let activeThemeMode = "auto";
+let automaticThemeTimer = null;
 let systemMediaListenerAttached = false;
 
-const sunIconSvg = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
-const moonIconSvg = `<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+const sunIconSvg = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+const moonIconSvg = '<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
 
 function getThemeMode() {
   try {
-    const val = localStorage.getItem(THEME_MODE_KEY);
-    if (val === "auto" || val === "system" || val === "manual") return val;
-    // Check legacy key if present
-    const legacyAuto = localStorage.getItem("nexovolt_auto_theme");
-    if (legacyAuto === "false") return "manual";
-  } catch (e) {}
-  return "auto";
+    const value = localStorage.getItem(THEME_MODE_KEY);
+    if (value === "auto" || value === "system" || value === "manual") return value;
+    if (localStorage.getItem("nexovolt_auto_theme") === "false") return "manual";
+  } catch (error) {}
+  return activeThemeMode;
+}
+
+function saveThemeMode(mode) {
+  activeThemeMode = mode;
+  try {
+    localStorage.setItem(THEME_MODE_KEY, mode);
+  } catch (error) {}
 }
 
 function getSystemTheme() {
-  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
-    return "light";
-  }
-  return "dark";
+  return window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches
+    ? "light"
+    : "dark";
+}
+
+function getAutomaticTheme() {
+  const hour = new Date().getHours();
+  return hour >= 6 && hour < 18 ? "light" : "dark";
 }
 
 function updateThemeUI(theme, mode) {
   const isDark = theme === "dark";
 
-  // Update theme toggle button icon & title (only visible in manual mode)
-  document.querySelectorAll(".theme-toggle").forEach((btn) => {
-    btn.setAttribute("aria-label", isDark ? "Switch to light theme" : "Switch to dark theme");
-    btn.setAttribute("title", isDark ? "Switch to light theme" : "Switch to dark theme");
-    btn.innerHTML = `<span class="theme-toggle-icon" aria-hidden="true">${isDark ? sunIconSvg : moonIconSvg}</span>`;
+  document.querySelectorAll(".theme-toggle").forEach((button) => {
+    button.setAttribute("aria-label", isDark ? "Switch to light theme" : "Switch to dark theme");
+    button.setAttribute("title", isDark ? "Switch to light theme" : "Switch to dark theme");
+    button.innerHTML = '<span class="theme-toggle-icon" aria-hidden="true">' +
+      (isDark ? sunIconSvg : moonIconSvg) + "</span>";
   });
 
-  // Toggle container class for manual button visibility
   document.querySelectorAll(".theme-controls").forEach((wrapper) => {
-    if (mode === "manual") {
-      wrapper.classList.add("manual-active");
-    } else {
-      wrapper.classList.remove("manual-active");
-    }
+    wrapper.classList.toggle("manual-active", mode === "manual");
   });
 
-  // Update mode selector button
-  document.querySelectorAll(".theme-mode-btn").forEach((btn) => {
-    btn.classList.toggle("active-auto", mode === "auto");
-    btn.classList.toggle("active-system", mode === "system");
-    btn.setAttribute("aria-pressed", String(mode !== "manual"));
+  const labels = { auto: "Auto", system: "System", manual: "Manual" };
+  const nextModes = { auto: "System", system: "Manual", manual: "Auto" };
+  const currentMode = labels[mode] ? mode : "auto";
+  const description = "Theme mode: " + labels[currentMode] +
+    (currentMode === "auto" ? " (local time)" : "") +
+    ". Activate to switch to " + nextModes[currentMode] + ".";
 
-    let label = "Auto";
-    let title = "Mode: Auto (Sunrise/Sunset). Click to switch to System OS mode.";
-    if (mode === "system") {
-      label = "System";
-      title = "Mode: System (OS default theme). Click to switch to Manual mode.";
-    } else if (mode === "manual") {
-      label = "Manual";
-      title = "Mode: Manual. Click to switch to Auto mode.";
-    }
-
-    btn.setAttribute("title", title);
-    btn.innerHTML = `<span class="theme-mode-indicator" aria-hidden="true"></span><span class="theme-mode-label">${label}</span>`;
+  document.querySelectorAll(".theme-mode-btn").forEach((button) => {
+    button.classList.toggle("active-auto", currentMode === "auto");
+    button.classList.toggle("active-system", currentMode === "system");
+    button.removeAttribute("aria-pressed");
+    button.setAttribute("aria-label", description);
+    button.setAttribute("title", description);
+    button.innerHTML = '<span class="theme-mode-indicator" aria-hidden="true"></span>' +
+      '<span class="theme-mode-label">' + labels[currentMode] + "</span>";
   });
 }
 
-function applyTheme(theme, saveManual = false) {
+function applyTheme(theme) {
   const selectedTheme = theme === "light" ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", selectedTheme);
-  document.body.setAttribute("data-theme", selectedTheme);
-  if (saveManual) {
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, selectedTheme);
-    } catch (e) {}
-  }
+  if (document.body) document.body.setAttribute("data-theme", selectedTheme);
   updateThemeUI(selectedTheme, getThemeMode());
 }
 
-// Default solar times fallback: sunrise at 06:00, sunset at 18:30 local time
-function getFallbackSolarTimes(date = new Date()) {
-  const sunrise = new Date(date);
-  sunrise.setHours(6, 0, 0, 0);
-  const sunset = new Date(date);
-  sunset.setHours(18, 30, 0, 0);
-  return {
-    sunrise: sunrise.toISOString(),
-    sunset: sunset.toISOString()
-  };
-}
+function scheduleAutomaticThemeUpdate() {
+  if (automaticThemeTimer) clearTimeout(automaticThemeTimer);
+  const now = new Date();
+  const next = new Date(now);
 
-function getCachedSolarTimes() {
-  try {
-    const cached = JSON.parse(localStorage.getItem(SUN_CACHE_KEY));
-    if (cached && cached.expiresAt && Date.now() < cached.expiresAt) {
-      return cached;
-    }
-  } catch (e) {}
-  return null;
-}
-
-function saveCachedSolarTimes(sunriseIso, sunsetIso) {
-  try {
-    const expiresAt = Date.now() + 12 * 60 * 60 * 1000;
-    localStorage.setItem(SUN_CACHE_KEY, JSON.stringify({
-      sunrise: sunriseIso,
-      sunset: sunsetIso,
-      expiresAt
-    }));
-  } catch (e) {}
-}
-
-async function fetchSolarTimesFromInternet(lat, lng) {
-  const latitude = typeof lat === "number" ? lat : 12.9249;
-  const longitude = typeof lng === "number" ? lng : 80.1265;
-
-  try {
-    const res = await fetch(`https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`);
-    if (res.ok) {
-      const data = await res.json();
-      if (data.status === "OK" && data.results && data.results.sunrise && data.results.sunset) {
-        saveCachedSolarTimes(data.results.sunrise, data.results.sunset);
-        return { sunrise: data.results.sunrise, sunset: data.results.sunset };
-      }
-    }
-  } catch (err) {}
-
-  try {
-    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=sunrise,sunset&timezone=auto`);
-    if (res.ok) {
-      const data = await res.json();
-      if (data.daily && data.daily.sunrise && data.daily.sunset) {
-        const sunrise = new Date(data.daily.sunrise[0]).toISOString();
-        const sunset = new Date(data.daily.sunset[0]).toISOString();
-        saveCachedSolarTimes(sunrise, sunset);
-        return { sunrise, sunset };
-      }
-    }
-  } catch (err) {}
-
-  return null;
-}
-
-function calculateSolarTheme(solarTimes) {
-  const now = Date.now();
-  const sunriseTime = new Date(solarTimes.sunrise).getTime();
-  const sunsetTime = new Date(solarTimes.sunset).getTime();
-
-  if (now >= sunriseTime && now < sunsetTime) {
-    return "light";
-  }
-  return "dark";
-}
-
-function scheduleNextSolarSwitch(solarTimes) {
-  if (solarTimerId) clearTimeout(solarTimerId);
-
-  const now = Date.now();
-  const sunriseTime = new Date(solarTimes.sunrise).getTime();
-  const sunsetTime = new Date(solarTimes.sunset).getTime();
-
-  let nextSwitchTime = null;
-  if (now < sunriseTime) {
-    nextSwitchTime = sunriseTime;
-  } else if (now < sunsetTime) {
-    nextSwitchTime = sunsetTime;
+  if (now.getHours() < 6) {
+    next.setHours(6, 0, 0, 0);
+  } else if (now.getHours() < 18) {
+    next.setHours(18, 0, 0, 0);
   } else {
-    nextSwitchTime = sunriseTime + 24 * 60 * 60 * 1000;
+    next.setDate(next.getDate() + 1);
+    next.setHours(6, 0, 0, 0);
   }
 
-  const msUntil = Math.max(1000, nextSwitchTime - now);
-  solarTimerId = setTimeout(() => {
+  automaticThemeTimer = setTimeout(() => {
     if (getThemeMode() === "auto") {
-      const nextTheme = calculateSolarTheme(solarTimes);
-      applyTheme(nextTheme, false);
+      applyTheme(getAutomaticTheme());
+      scheduleAutomaticThemeUpdate();
     }
-    syncSolarTheme();
-  }, msUntil + 2000);
-}
-
-async function syncSolarTheme() {
-  const mode = getThemeMode();
-  if (mode !== "auto") return;
-
-  let solarTimes = getCachedSolarTimes();
-
-  if (solarTimes) {
-    const theme = calculateSolarTheme(solarTimes);
-    applyTheme(theme, false);
-    scheduleNextSolarSwitch(solarTimes);
-  }
-
-  const updateTimes = async (lat, lng) => {
-    const fetched = await fetchSolarTimesFromInternet(lat, lng);
-    const times = fetched || solarTimes || getFallbackSolarTimes();
-    if (getThemeMode() === "auto") {
-      const theme = calculateSolarTheme(times);
-      applyTheme(theme, false);
-    }
-    scheduleNextSolarSwitch(times);
-  };
-
-  if ("geolocation" in navigator && navigator.permissions) {
-    navigator.permissions.query({ name: "geolocation" }).then((perm) => {
-      if (perm.state === "granted") {
-        navigator.geolocation.getCurrentPosition(
-          (pos) => updateTimes(pos.coords.latitude, pos.coords.longitude),
-          () => updateTimes()
-        );
-      } else {
-        updateTimes();
-      }
-    }).catch(() => updateTimes());
-  } else {
-    updateTimes();
-  }
+  }, Math.max(1000, next.getTime() - now.getTime()));
 }
 
 function setupSystemThemeListener() {
   if (systemMediaListenerAttached || !window.matchMedia) return;
   const mediaQuery = window.matchMedia("(prefers-color-scheme: light)");
-  const handler = (e) => {
-    if (getThemeMode() === "system") {
-      applyTheme(e.matches ? "light" : "dark", false);
-    }
+  const handler = (event) => {
+    if (getThemeMode() === "system") applyTheme(event.matches ? "light" : "dark");
   };
+
   if (mediaQuery.addEventListener) {
     mediaQuery.addEventListener("change", handler);
   } else if (mediaQuery.addListener) {
@@ -319,59 +176,55 @@ function setupSystemThemeListener() {
 
 function setupTheme() {
   const mode = getThemeMode();
+  activeThemeMode = mode;
 
   if (mode === "system") {
-    applyTheme(getSystemTheme(), false);
+    applyTheme(getSystemTheme());
   } else if (mode === "manual") {
+    let manualTheme = "dark";
     try {
-      const manualTheme = localStorage.getItem(THEME_STORAGE_KEY) || "dark";
-      applyTheme(manualTheme, false);
-    } catch (e) {
-      applyTheme("dark", false);
-    }
+      manualTheme = localStorage.getItem(THEME_STORAGE_KEY) || "dark";
+    } catch (error) {}
+    applyTheme(manualTheme);
   } else {
-    // Auto mode
-    const cached = getCachedSolarTimes() || getFallbackSolarTimes();
-    applyTheme(calculateSolarTheme(cached), false);
-    syncSolarTheme();
+    applyTheme(getAutomaticTheme());
+    scheduleAutomaticThemeUpdate();
   }
 
   setupSystemThemeListener();
 
-  // Mode cycle: Auto -> System -> Manual -> Auto
-  document.querySelectorAll(".theme-mode-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
+  document.querySelectorAll(".theme-mode-btn").forEach((button) => {
+    button.addEventListener("click", () => {
       const currentMode = getThemeMode();
-      let nextMode = "auto";
-      if (currentMode === "auto") nextMode = "system";
-      else if (currentMode === "system") nextMode = "manual";
-      else nextMode = "auto";
-
-      try {
-        localStorage.setItem(THEME_MODE_KEY, nextMode);
-      } catch (e) {}
+      const nextMode = currentMode === "auto" ? "system" : currentMode === "system" ? "manual" : "auto";
+      saveThemeMode(nextMode);
 
       if (nextMode === "system") {
-        applyTheme(getSystemTheme(), false);
+        if (automaticThemeTimer) clearTimeout(automaticThemeTimer);
+        applyTheme(getSystemTheme());
       } else if (nextMode === "manual") {
-        const activeTheme = document.body.getAttribute("data-theme") || "dark";
-        applyTheme(activeTheme, true);
+        if (automaticThemeTimer) clearTimeout(automaticThemeTimer);
+        const theme = document.body.getAttribute("data-theme") || "dark";
+        try {
+          localStorage.setItem(THEME_STORAGE_KEY, theme);
+        } catch (error) {}
+        applyTheme(theme);
       } else {
-        // Auto
-        const times = getCachedSolarTimes() || getFallbackSolarTimes();
-        applyTheme(calculateSolarTheme(times), false);
-        syncSolarTheme();
+        applyTheme(getAutomaticTheme());
+        scheduleAutomaticThemeUpdate();
       }
     });
   });
 
-  // Manual toggle click handler (Dark <-> Light, visible only in Manual mode)
-  document.querySelectorAll(".theme-toggle").forEach((btn) => {
-    btn.addEventListener("click", () => {
+  document.querySelectorAll(".theme-toggle").forEach((button) => {
+    button.addEventListener("click", () => {
       if (getThemeMode() !== "manual") return;
-      const active = document.body.getAttribute("data-theme") === "light" ? "light" : "dark";
-      const next = active === "dark" ? "light" : "dark";
-      applyTheme(next, true);
+      const currentTheme = document.body.getAttribute("data-theme") === "light" ? "light" : "dark";
+      const nextTheme = currentTheme === "dark" ? "light" : "dark";
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+      } catch (error) {}
+      applyTheme(nextTheme);
     });
   });
 }
@@ -381,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setActiveNavigation();
   setupMenu();
   setupReveals();
-  setupEstimator();
-  setupContactForm();
-  document.querySelectorAll("[data-year]").forEach((element) => { element.textContent = new Date().getFullYear(); });
+  document.querySelectorAll("[data-year]").forEach((element) => {
+    element.textContent = new Date().getFullYear();
+  });
 });

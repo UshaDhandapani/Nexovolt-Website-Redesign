@@ -5,41 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Industrial power-quality engineering for manufacturing, healthcare, rail, commercial, research, FMCG and process facilities.">
   <title>Industries | Nexovolt</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" sizes="64x64"><link rel="canonical" href="industries.html">
+  <meta property="og:title" content="Industries | Nexovolt">
+  <meta property="og:description" content="Industrial power-quality engineering for manufacturing, healthcare, rail, commercial, research, FMCG and process facilities.">
+  <meta property="og:type" content="website">
   <link rel="stylesheet" href="nexovolt.css">
-  <script>
-    (function(){
-      try {
-        var mode = localStorage.getItem("nexovolt_theme_mode") || "auto";
-        var t = null;
-        if (mode === "system") {
-          t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
-        } else if (mode === "manual") {
-          t = localStorage.getItem("nexovolt_theme");
-        } else {
-          // Auto (sunrise/sunset)
-          try {
-            var c = JSON.parse(localStorage.getItem("nexovolt_sun_times"));
-            if (c && c.sunrise && c.sunset) {
-              var now = Date.now();
-              t = (now >= new Date(c.sunrise).getTime() && now < new Date(c.sunset).getTime()) ? "light" : "dark";
-            }
-          } catch(e) {}
-        }
-        if (!t) {
-          var h = new Date().getHours();
-          t = (h >= 6 && h < 18) ? "light" : "dark";
-        }
-        document.documentElement.setAttribute("data-theme", t);
-      } catch(e) {}
-    })();
-  </script>
+  <script src="nexovolt-theme-init.js"></script>
+
   <script src="nexovolt.js" defer></script>
 </head>
 <body data-page="industries">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><nav class="wrap nav" aria-label="Main navigation">
-    <a class="logo" href="Nexovolt Website redesign.html" aria-label="Nexovolt home">NEXO<b>VOLT</b></a><button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
-    <div class="site-links"><a data-nav="home" href="Nexovolt Website redesign.html">Home</a><a data-nav="solutions" href="services.html">Solutions</a><a data-nav="industries" href="industries.html">Industries</a><a data-nav="case-studies" href="case-studies.html">Case Studies</a><a data-nav="insights" href="resources.html">Insights</a><a data-nav="about" href="about.html">About</a><a class="button small" data-nav="contact" href="contact.html">Request an assessment</a><div class="theme-controls">
+    <a class="logo" href="index.html" aria-label="Nexovolt home">NEXO<b>VOLT</b></a><button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-links">☰</button>
+    <div class="site-links" id="site-links"><a data-nav="home" href="index.html">Home</a><a data-nav="solutions" href="services.html">Solutions</a><a data-nav="industries" href="industries.html">Industries</a><a data-nav="case-studies" href="case-studies.html">Case Studies</a><a data-nav="insights" href="resources.html">Insights</a><a data-nav="about" href="about.html">About</a><a data-nav="tools" href="tools.html">Assessment prep</a><a class="button small" data-nav="contact" href="contact.html">Request an assessment</a><div class="theme-controls">
           <button class="theme-mode-btn" type="button" aria-label="Theme mode setting" title="Theme mode setting">
             <span class="theme-mode-label">Auto</span>
           </button>
@@ -47,7 +26,7 @@
         </div></div>
   </nav></header>
   <main id="main">
-    <section class="page-hero"><div class="wrap reveal"><div class="breadcrumb"><a href="Nexovolt Website redesign.html">Home</a> / Industries</div><div class="eyebrow">INDUSTRY CONTEXT</div><h1>Power quality for <span>demanding operations.</span></h1><p>The right electrical response considers the loads, operating pattern, uptime requirement and consequences of interruption at the facility.</p></div></section>
+    <section class="page-hero"><div class="wrap reveal"><div class="breadcrumb"><a href="index.html">Home</a> / Industries</div><div class="eyebrow">INDUSTRY CONTEXT</div><h1>Power quality for <span>demanding operations.</span></h1><p>The right electrical response considers the loads, operating pattern, uptime requirement and consequences of interruption at the facility.</p></div></section>
     <section class="wrap section reveal"><div class="section-head"><div class="eyebrow">PRIORITY INDUSTRIES</div><h2>Start with the operating environment.</h2><p class="muted">These sector perspectives help frame the first conversation. Relevant customer references and outcome metrics are published only with approval.</p></div><div class="industry-grid">
       <article class="industry"><span aria-hidden="true">🏭</span>Automotive &amp; manufacturing<small>VFDs, automation, welding, robotics, CNC loads, APFC and production reliability.</small></article>
       <article class="industry"><span aria-hidden="true">⚕</span>Healthcare &amp; pharma<small>Sensitive equipment, UPS and non-linear loads, clean processes and continuous operation.</small></article>
@@ -58,10 +37,6 @@
     <section class="wrap section tight reveal"><div class="split"><div class="callout"><div class="eyebrow">THE RIGHT QUESTIONS</div><h2>What is the system doing when the problem occurs?</h2><p class="muted">Operating cycles, expansion history, harmonic load mix and the consequence of downtime are more useful than a generic equipment specification.</p><ul class="feature-list"><li>What has changed at the facility?</li><li>When does the issue occur?</li><li>Which loads are operating at the time?</li><li>What measurements, reports or diagrams are available?</li></ul></div><div><div class="eyebrow">A SITE-SPECIFIC RESPONSE</div><h2>From industry symptom to measurable next step.</h2><p class="muted">Nexovolt can define a study, assessment or technical consultation path for issues including poor PF, capacitor failures, nuisance tripping, heating, harmonic distortion and uncertain capacity or loss.</p><div class="card-grid" style="grid-template-columns:1fr 1fr"><article class="card"><h3>Reliability &amp; continuity</h3><p class="muted">Prioritise risk, production continuity and critical electrical loads.</p></article><article class="card"><h3>Variable operating conditions</h3><p class="muted">Design around shifts, process changes and actual load behaviour.</p></article></div></div></div></section>
     <section class="wrap section tight reveal"><div class="cta-band"><div class="eyebrow">YOUR FACILITY</div><h2>Not sure where your problem fits?</h2><p class="muted">Share the industry, installed equipment and electrical symptoms. We can help determine whether an assessment is the appropriate first step.</p><div class="ctas"><a class="button" href="contact.html">Describe your site <span aria-hidden="true">→</span></a><a class="button secondary" href="services.html">Explore solutions</a></div></div></section>
   </main>
-  <footer><div class="wrap footer-inner"><div><div class="footer-logo">NEXO<b>VOLT</b></div>Industrial power quality engineering.</div><div>© <span data-year></span> Nexovolt · Measurement-led. Engineering-led. Evidence-led.</div></div></footer>
+  <footer><div class="wrap footer-inner"><div><div class="footer-logo">NEXO<b>VOLT</b></div>Industrial power quality engineering.</div><div>© <span data-year></span> Nexovolt · Measurement-led. Engineering-led. Evidence-led.</div></div><div class="wrap privacy-link"><a href="privacy.html">Privacy notice</a></div></footer>
 </body>
 </html>
-
-
-
-

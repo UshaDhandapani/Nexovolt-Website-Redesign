@@ -5,41 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="About Nexovolt, its measurement-led industrial power-quality engineering philosophy and technical leadership.">
   <title>About Nexovolt | Industrial Power Quality Engineering</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" sizes="64x64"><link rel="canonical" href="about.html">
+  <meta property="og:title" content="About Nexovolt | Industrial Power Quality Engineering">
+  <meta property="og:description" content="About Nexovolt, its measurement-led industrial power-quality engineering philosophy and technical leadership.">
+  <meta property="og:type" content="website">
   <link rel="stylesheet" href="nexovolt.css">
-  <script>
-    (function(){
-      try {
-        var mode = localStorage.getItem("nexovolt_theme_mode") || "auto";
-        var t = null;
-        if (mode === "system") {
-          t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
-        } else if (mode === "manual") {
-          t = localStorage.getItem("nexovolt_theme");
-        } else {
-          // Auto (sunrise/sunset)
-          try {
-            var c = JSON.parse(localStorage.getItem("nexovolt_sun_times"));
-            if (c && c.sunrise && c.sunset) {
-              var now = Date.now();
-              t = (now >= new Date(c.sunrise).getTime() && now < new Date(c.sunset).getTime()) ? "light" : "dark";
-            }
-          } catch(e) {}
-        }
-        if (!t) {
-          var h = new Date().getHours();
-          t = (h >= 6 && h < 18) ? "light" : "dark";
-        }
-        document.documentElement.setAttribute("data-theme", t);
-      } catch(e) {}
-    })();
-  </script>
+  <script src="nexovolt-theme-init.js"></script>
+
   <script src="nexovolt.js" defer></script>
 </head>
 <body data-page="about">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><nav class="wrap nav" aria-label="Main navigation">
-    <a class="logo" href="Nexovolt Website redesign.html" aria-label="Nexovolt home">NEXO<b>VOLT</b></a><button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
-    <div class="site-links"><a data-nav="home" href="Nexovolt Website redesign.html">Home</a><a data-nav="solutions" href="services.html">Solutions</a><a data-nav="industries" href="industries.html">Industries</a><a data-nav="case-studies" href="case-studies.html">Case Studies</a><a data-nav="insights" href="resources.html">Insights</a><a data-nav="about" href="about.html">About</a><a class="button small" data-nav="contact" href="contact.html">Request an assessment</a><div class="theme-controls">
+    <a class="logo" href="index.html" aria-label="Nexovolt home">NEXO<b>VOLT</b></a><button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-links">☰</button>
+    <div class="site-links" id="site-links"><a data-nav="home" href="index.html">Home</a><a data-nav="solutions" href="services.html">Solutions</a><a data-nav="industries" href="industries.html">Industries</a><a data-nav="case-studies" href="case-studies.html">Case Studies</a><a data-nav="insights" href="resources.html">Insights</a><a data-nav="about" href="about.html">About</a><a data-nav="tools" href="tools.html">Assessment prep</a><a class="button small" data-nav="contact" href="contact.html">Request an assessment</a><div class="theme-controls">
           <button class="theme-mode-btn" type="button" aria-label="Theme mode setting" title="Theme mode setting">
             <span class="theme-mode-label">Auto</span>
           </button>
@@ -47,16 +26,12 @@
         </div></div>
   </nav></header>
   <main id="main">
-    <section class="page-hero"><div class="wrap reveal"><div class="breadcrumb"><a href="Nexovolt Website redesign.html">Home</a> / About</div><div class="eyebrow">ABOUT NEXOVOLT</div><h1>Engineering decisions grounded in <span>real measurements.</span></h1><p>Nexovolt exists to help industrial teams understand electrical-system behaviour, define an appropriate corrective strategy and validate the outcome.</p></div></section>
+    <section class="page-hero"><div class="wrap reveal"><div class="breadcrumb"><a href="index.html">Home</a> / About</div><div class="eyebrow">ABOUT NEXOVOLT</div><h1>Engineering decisions grounded in <span>real measurements.</span></h1><p>Nexovolt exists to help industrial teams understand electrical-system behaviour, define an appropriate corrective strategy and validate the outcome.</p></div></section>
     <section class="wrap section reveal"><div class="split"><div><div class="eyebrow">MEASUREMENT-LED PHILOSOPHY</div><h2>Evidence before recommendation.</h2><p class="lead">A good electrical intervention is not only a product. It is a chain of sound measurement, transparent diagnosis, appropriate design, careful implementation and post-measurement validation.</p></div><div class="callout"><h3>Claims governance</h3><p class="muted">Experience figures, project counts, technical performance, savings, standards references, certifications and partner details are published only after their definition, evidence and approval are confirmed.</p><a class="button secondary" href="case-studies.html">See the evidence standard</a></div></div></section>
     <section class="wrap section tight reveal"><div class="section-head"><div class="eyebrow">HOW WE WORK</div><h2>A practical engineering method.</h2></div><div class="principles"><article class="principle"><h3>Measure what matters</h3><p class="muted">Make decisions from relevant electrical data, load conditions and system context—not generic assumptions.</p></article><article class="principle"><h3>Design for the site</h3><p class="muted">Account for the facility’s load mix, process, existing equipment, interfaces and operating conditions.</p></article><article class="principle"><h3>Validate the result</h3><p class="muted">Revisit the measures that matter after implementation so the outcome is clear, documented and comparable.</p></article></div></section>
-    <section class="wrap section tight reveal"><div class="split"><div><div class="eyebrow">TECHNICAL LEADERSHIP</div><h2>J K Venkatesh</h2><p class="lead">Technical Director &amp; Partner</p><p class="muted">This profile area should present Nexovolt’s approved technical leadership background, relevant expertise, credentials, field responsibilities and official designation.</p></div><div class="callout"><h3>Before publication</h3><ul class="feature-list"><li>Confirm official role and public profile wording</li><li>Approve experience, project and study metric definitions</li><li>Verify certifications, memberships and partner permissions</li><li>Confirm team, instrument and field-capability details</li></ul></div></div></section>
+    <section class="wrap section tight reveal"><div class="split"><div><div class="eyebrow">TECHNICAL LEADERSHIP</div><h2>Engineering responsibility stays with the people doing the work.</h2><p class="lead">Each engagement should identify its scope, measurement basis and responsible engineering contact.</p></div><div class="callout"><h3>Evidence and transparency</h3><p class="muted">Public credentials, customer references and project outcomes should be supported by verified records and permission to publish.</p></div></div></section>
     <section class="wrap section tight reveal"><div class="cta-band"><div class="eyebrow">ENGINEERING CONVERSATION</div><h2>Have a site issue that needs a clear next step?</h2><p class="muted">Tell Nexovolt about the facility and the problem. The first conversation can determine the appropriate measurement or consultation path.</p><div class="ctas"><a class="button" href="contact.html">Request a power quality assessment <span aria-hidden="true">→</span></a><a class="button secondary" href="services.html">Explore solutions</a></div></div></section>
   </main>
-  <footer><div class="wrap footer-inner"><div><div class="footer-logo">NEXO<b>VOLT</b></div>Industrial power quality engineering.</div><div>© <span data-year></span> Nexovolt · Measurement-led. Engineering-led. Evidence-led.</div></div></footer>
+  <footer><div class="wrap footer-inner"><div><div class="footer-logo">NEXO<b>VOLT</b></div>Industrial power quality engineering.</div><div>© <span data-year></span> Nexovolt · Measurement-led. Engineering-led. Evidence-led.</div></div><div class="wrap privacy-link"><a href="privacy.html">Privacy notice</a></div></footer>
 </body>
 </html>
-
-
-
-
