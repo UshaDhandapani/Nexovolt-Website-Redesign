@@ -412,6 +412,7 @@ h3 { margin-bottom: 8px; font-size: 21px; line-height: 1.2; }
 .consent input { width: auto; margin-top: 4px; accent-color: var(--accent); }
 .form-fields { min-width: 0; margin: 0; padding: 0; border: 0; }
 .form-fields:disabled { opacity: .62; }
+.honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .privacy-link { margin-top: 12px; text-align: right; font-size: 12px; }
 .privacy-link a { color: var(--accent); }
 .contact-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }

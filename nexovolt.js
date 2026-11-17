@@ -62,6 +62,72 @@ function setupReveals() {
   }
 }
 
+function setupContactForm() {
+  const form = document.querySelector("[data-contact-form]");
+  if (!form) return;
+
+  const fields = form.querySelector(".form-fields");
+  const status = form.querySelector("[data-contact-status]");
+  if (!fields || !status) return;
+
+  const setStatus = (message) => {
+    status.textContent = message;
+  };
+
+  fetch("api/status", { cache: "no-store", credentials: "same-origin" })
+    .then((response) => {
+      if (!response.ok) throw new Error("Contact service unavailable");
+      return response.json();
+    })
+    .then((result) => {
+      if (!result.accepting_submissions) {
+        setStatus("Online submissions are not configured yet. Please use the phone or email details on this page.");
+        return;
+      }
+      fields.disabled = false;
+      setStatus("Your details will be sent to Nexovolt so the team can respond. The quotation will be confirmed after engineer review.");
+    })
+    .catch(() => {
+      setStatus("Online submissions are unavailable. Please use the phone or email details on this page.");
+    });
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (fields.disabled || !form.reportValidity()) return;
+
+    const payload = Object.fromEntries(new FormData(form).entries());
+    fields.disabled = true;
+    form.setAttribute("aria-busy", "true");
+    setStatus("Sending your enquiry…");
+
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        credentials: "same-origin",
+        cache: "no-store",
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (result.recorded) {
+        form.reset();
+        fields.disabled = false;
+        setStatus(result.message || "Your enquiry was recorded.");
+        return;
+      }
+
+      setStatus(result.message || "We could not send your enquiry. Please try again or use the contact details on this page.");
+      fields.disabled = false;
+    } catch (error) {
+      setStatus("We could not confirm whether the enquiry was recorded. Your entries are still here; please contact Nexovolt before retrying to avoid a duplicate enquiry.");
+      fields.disabled = false;
+    } finally {
+      form.removeAttribute("aria-busy");
+    }
+  });
+}
+
 const THEME_STORAGE_KEY = "nexovolt_theme";
 const THEME_MODE_KEY = "nexovolt_theme_mode";
 let activeThemeMode = "auto";
@@ -234,6 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setActiveNavigation();
   setupMenu();
   setupReveals();
+  setupContactForm();
   document.querySelectorAll("[data-year]").forEach((element) => {
     element.textContent = new Date().getFullYear();
   });
