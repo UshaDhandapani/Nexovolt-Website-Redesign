@@ -1,7 +1,3 @@
 .env
 .venv/
 __pycache__/
-*.py[cod]
-private_data/
-*.xlsx
-*.xlsm
