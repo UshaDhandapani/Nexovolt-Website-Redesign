@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="cabGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#182230"/>
+      <stop offset="70%" stop-color="#141c27"/>
+      <stop offset="100%" stop-color="#0e151f"/>
+    </linearGradient>
+    <linearGradient id="modGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#223042"/>
+      <stop offset="100%" stop-color="#16202c"/>
+    </linearGradient>
+    <linearGradient id="busbarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b45309"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <linearGradient id="heatSink" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f1722"/>
+      <stop offset="50%" stop-color="#1e2a3a"/>
+      <stop offset="100%" stop-color="#0f1722"/>
+    </linearGradient>
+    <filter id="ahfGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Shadow underneath panel -->
+  <ellipse cx="300" cy="435" rx="250" ry="12" fill="#000000" opacity="0.6"/>
+
+  <!-- Main Enclosure Structure (IP54 Industrial Cabinet) -->
+  <rect x="100" y="20" width="400" height="400" rx="14" fill="url(#cabGrad)" stroke="#2b3b4f" stroke-width="2.5"/>
+  
+  <!-- Cabinet Plinth / Heavy Base -->
+  <rect x="90" y="405" width="420" height="18" rx="4" fill="#0b1118" stroke="#1f2c3b" stroke-width="2"/>
+  
+  <!-- Top Ventilation Hood / Exhaust Fans -->
+  <rect x="130" y="10" width="340" height="12" rx="4" fill="#1b2533" stroke="#2c3c50" stroke-width="1.5"/>
+  <circle cx="200" cy="16" r="4" fill="#0f1620"/>
+  <circle cx="250" cy="16" r="4" fill="#0f1620"/>
+  <circle cx="300" cy="16" r="4" fill="#0f1620"/>
+  <circle cx="350" cy="16" r="4" fill="#0f1620"/>
+  <circle cx="400" cy="16" r="4" fill="#0f1620"/>
+
+  <!-- Outer Door Bezel & Eye-level HMI Touchscreen Header -->
+  <rect x="120" y="32" width="360" height="60" rx="8" fill="#111822" stroke="#253548" stroke-width="1.5"/>
+  
+  <!-- Central HMI Controller Display (Active Filter Control) -->
+  <rect x="190" y="40" width="220" height="44" rx="5" fill="#040b12" stroke="#189ED6" stroke-width="1"/>
+  <!-- HMI Display Graphic -->
+  <text x="202" y="55" fill="#27BCAE" font-family="system-ui, monospace" font-size="9" font-weight="800">AHF CONTROLLER [ACTIVE]</text>
+  <text x="202" y="68" fill="#3AC67D" font-family="system-ui, monospace" font-size="8">COMPENSATING: 3rd, 5th, 7th</text>
+  <text x="202" y="78" fill="#edf5ff" font-family="system-ui, monospace" font-size="8">EFFICIENCY: 97.8% | I_COMP: 150A</text>
+  <circle cx="395" cy="52" r="3.5" fill="#3AC67D" filter="url(#ahfGlow)"/>
+  <circle cx="395" cy="65" r="3.5" fill="#189ED6" filter="url(#ahfGlow)"/>
+
+  <!-- Emergency Stop Button -->
+  <circle cx="150" cy="62" r="14" fill="#991b1b" stroke="#ef4444" stroke-width="2"/>
+  <circle cx="150" cy="62" r="9" fill="#dc2626"/>
+  <text x="136" y="86" fill="#ef4444" font-family="system-ui, sans-serif" font-size="7" font-weight="800">E-STOP</text>
+
+  <!-- Door Key Lock Handle -->
+  <rect x="445" y="52" width="12" height="24" rx="3" fill="#334155" stroke="#64748b" stroke-width="1"/>
+  <circle cx="451" cy="62" r="2.5" fill="#0f172a"/>
+
+  <!-- Glass Viewing Window / Internal Compartment Display -->
+  <rect x="120" y="105" width="360" height="290" rx="8" fill="#0a1017" stroke="#213042" stroke-width="1.5"/>
+
+  <!-- AHF RACK MODULE 1 (Top Power Module - 50A IGBT Inverter) -->
+  <g transform="translate(132, 116)">
+    <rect x="0" y="0" width="336" height="82" rx="6" fill="url(#modGrad)" stroke="#2d4057" stroke-width="1.2"/>
+    <!-- Handles -->
+    <rect x="10" y="24" width="6" height="34" rx="2" fill="#475569"/>
+    <rect x="320" y="24" width="6" height="34" rx="2" fill="#475569"/>
+    <!-- Heat Sink Fins -->
+    <rect x="30" y="12" width="130" height="58" rx="4" fill="url(#heatSink)" stroke="#1a2533" stroke-width="1"/>
+    <!-- Individual fin lines -->
+    <line x1="45" y1="14" x2="45" y2="68" stroke="#334155" stroke-width="1.5"/>
+    <line x1="60" y1="14" x2="60" y2="68" stroke="#334155" stroke-width="1.5"/>
+    <line x1="75" y1="14" x2="75" y2="68" stroke="#334155" stroke-width="1.5"/>
+    <line x1="90" y1="14" x2="90" y2="68" stroke="#334155" stroke-width="1.5"/>
+    <line x1="105" y1="14" x2="105" y2="68" stroke="#334155" stroke-width="1.5"/>
+    <line x1="120" y1="14" x2="120" y2="68" stroke="#334155" stroke-width="1.5"/>
+    <line x1="135" y1="14" x2="135" y2="68" stroke="#334155" stroke-width="1.5"/>
+    <line x1="150" y1="14" x2="150" y2="68" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- Module Status Panel -->
+    <text x="175" y="26" fill="#edf5ff" font-family="system-ui, sans-serif" font-size="10" font-weight="800">POWER MODULE #1</text>
+    <text x="175" y="40" fill="#27BCAE" font-family="system-ui, monospace" font-size="9">3-LEVEL NPC IGBT</text>
+    <text x="175" y="54" fill="#9db0c5" font-family="system-ui, monospace" font-size="8">RATED: 50A | THD-i: &lt; 3%</text>
+    <text x="175" y="66" fill="#3AC67D" font-family="system-ui, monospace" font-size="8">STATUS: ONLINE / INJECTING</text>
+    
+    <!-- Fan Grille -->
+    <circle cx="300" cy="41" r="20" fill="#111822" stroke="#253549" stroke-width="1"/>
+    <circle cx="300" cy="41" r="14" fill="none" stroke="#374b63" stroke-width="1" stroke-dasharray="3,3"/>
+    <circle cx="300" cy="41" r="5" fill="#27BCAE"/>
+  </g>
+
+  <!-- AHF RACK MODULE 2 (Middle Power Module - 50A IGBT Inverter) -->
+  <g transform="translate(132, 208)">
+    <rect x="0" y="0" width="336" height="82" rx="6" fill="url(#modGrad)" stroke="#2d4057" stroke-width="1.2"/>
+    <rect x="10" y="24" width="6" height="34" rx="2" fill="#475569"/>
+    <rect x="320" y="24" width="6" height="34" rx="2" fill="#475569"/>
+    <rect x="30" y="12" width="130" height="58" rx="4" fill="url(#heatSink)" stroke="#1a2533" stroke-width="1"/>
+    <line x1="45" y1="14" x2="45" y2="68" stroke="#334155" stroke-width="1.5"/>
+    <line x1="60" y1="14" x2="60" y2="68" stroke="#334155" stroke-width="1.5"/>
+    <line x1="75" y1="14" x2="75" y2="68" stroke="#334155" stroke-width="1.5"/>
+    <line x1="90" y1="14" x2="90" y2="68" stroke="#334155" stroke-width="1.5"/>
+    <line x1="105" y1="14" x2="105" y2="68" stroke="#334155" stroke-width="1.5"/>
+    <line x1="120" y1="14" x2="120" y2="68" stroke="#334155" stroke-width="1.5"/>
+    <line x1="135" y1="14" x2="135" y2="68" stroke="#334155" stroke-width="1.5"/>
+    <line x1="150" y1="14" x2="150" y2="68" stroke="#334155" stroke-width="1.5"/>
+
+    <text x="175" y="26" fill="#edf5ff" font-family="system-ui, sans-serif" font-size="10" font-weight="800">POWER MODULE #2</text>
+    <text x="175" y="40" fill="#27BCAE" font-family="system-ui, monospace" font-size="9">3-LEVEL NPC IGBT</text>
+    <text x="175" y="54" fill="#9db0c5" font-family="system-ui, monospace" font-size="8">RATED: 50A | THD-i: &lt; 3%</text>
+    <text x="175" y="66" fill="#3AC67D" font-family="system-ui, monospace" font-size="8">STATUS: ONLINE / INJECTING</text>
+    
+    <circle cx="300" cy="41" r="20" fill="#111822" stroke="#253549" stroke-width="1"/>
+    <circle cx="300" cy="41" r="14" fill="none" stroke="#374b63" stroke-width="1" stroke-dasharray="3,3"/>
+    <circle cx="300" cy="41" r="5" fill="#27BCAE"/>
+  </g>
+
+  <!-- BOTTOM SECTION: Copper Busbars & AC/DC Filter Link -->
+  <g transform="translate(132, 300)">
+    <rect x="0" y="0" width="336" height="85" rx="6" fill="#0d141e" stroke="#233244" stroke-width="1.2"/>
+    <text x="16" y="20" fill="#9db0c5" font-family="system-ui, sans-serif" font-size="9" font-weight="800">MAIN BUSBARS &amp; HIGH-VOLTAGE LINK</text>
+    
+    <!-- Three Heavy Copper Busbars (Phase R, Y, B) -->
+    <!-- R-Phase -->
+    <rect x="25" y="30" width="80" height="14" rx="2" fill="url(#busbarGrad)" stroke="#d97706" stroke-width="0.8"/>
+    <circle cx="35" cy="37" r="3" fill="#182230" stroke="#78350f"/>
+    <circle cx="95" cy="37" r="3" fill="#182230" stroke="#78350f"/>
+    <rect x="25" y="46" width="80" height="4" fill="#ef4444" rx="1"/> <!-- Phase marker -->
+
+    <!-- Y-Phase -->
+    <rect x="125" y="30" width="80" height="14" rx="2" fill="url(#busbarGrad)" stroke="#d97706" stroke-width="0.8"/>
+    <circle cx="135" cy="37" r="3" fill="#182230" stroke="#78350f"/>
+    <circle cx="195" cy="37" r="3" fill="#182230" stroke="#78350f"/>
+    <rect x="125" y="46" width="80" height="4" fill="#eab308" rx="1"/>
+
+    <!-- B-Phase -->
+    <rect x="225" y="30" width="80" height="14" rx="2" fill="url(#busbarGrad)" stroke="#d97706" stroke-width="0.8"/>
+    <circle cx="235" cy="37" r="3" fill="#182230" stroke="#78350f"/>
+    <circle cx="295" cy="37" r="3" fill="#182230" stroke="#78350f"/>
+    <rect x="225" y="46" width="80" height="4" fill="#3b82f6" rx="1"/>
+
+    <text x="25" y="68" fill="#64748b" font-family="system-ui, monospace" font-size="8">L1 (RED)</text>
+    <text x="125" y="68" fill="#64748b" font-family="system-ui, monospace" font-size="8">L2 (YELLOW)</text>
+    <text x="225" y="68" fill="#64748b" font-family="system-ui, monospace" font-size="8">L3 (BLUE)</text>
+  </g>
+</svg>
